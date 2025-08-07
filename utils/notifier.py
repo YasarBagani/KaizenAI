@@ -7,6 +7,6 @@ def send_reminder():
 def run_scheduler():
     schedule.every(10).seconds.do(send_reminder)
     # schedule.every().day.at("21:19").do(send_reminder)
-    while True: 
-        schedule.run_pending()
-        time.sleep(1)
+    # while True: 
+    #     schedule.run_pending()
+    #     time.sleep(1)
