@@ -1,0 +1,22 @@
+[
+  {
+    "date": "2025-07-13",
+    "mood": "i am sad",
+    "sentiment": "Negative"
+  },
+  {
+    "date": "2025-07-13",
+    "mood": "i am happy",
+    "sentiment": "Positive"
+  },
+  {
+    "date": "2025-07-23",
+    "mood": "i am happy",
+    "sentiment": "Positive"
+  },
+  {
+    "date": "2025-07-23",
+    "mood": "i am happy",
+    "sentiment": "Positive"
+  }
+]
