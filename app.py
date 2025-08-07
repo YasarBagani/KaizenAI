@@ -2,7 +2,7 @@ import streamlit as st
 import os
 import json
 from models.sentiment_analyzer import get_sentiment
-from core.encourager import generate_message
+from core.encourager import generate_adaptive_message
 from core.tracker import log_habit
 from utils.notifier import run_scheduler
 
@@ -27,9 +27,10 @@ if new_mood:
 
 if selected_mood:
     sentiment = get_sentiment(selected_mood) 
-    message = generate_message(sentiment)
+    message = generate_adaptive_message(sentiment)
     st.write(message)
     if st.button("I did my Habit" ):
         log_habit(selected_mood, sentiment)
         run_scheduler()
         st.success("Habit logged, Basic Kaizen is successfully created")
+
