@@ -1,38 +1,35 @@
 import streamlit as st
+import os
+import json
 from models.sentiment_analyzer import get_sentiment
 from core.encourager import generate_message
 from core.tracker import log_habit
 from utils.notifier import run_scheduler
+
+def load_unique_moods(filepath= "data/habit_log.json"):
+    if not os.path.exists(filepath):
+        return []
+    with open(filepath, "r") as file:
+        data = json.load(file)
+        return list(set(entry["mood"] for entry in data))
+
 st.title("KaizenAI")
-if "mood" not in st.session_state:
-    st.session_state.mood = ""
+past_moods = load_unique_moods()
+selected_mood = None
+if past_moods: 
+    cols = st.columns(min(5,len(past_moods)))
+    for i,mood in enumerate(past_moods):
+        if cols[i % len(cols)].button(mood):
+            selected_mood = mood
+new_mood = st.text_input("How are you feeling today?")
+if new_mood:
+    selected_mood = new_mood
 
-# Show input box (auto-filled from session state if a button was clicked)
-mood = st.text_input("How are you feeling today?", value=st.session_state.mood, key="mood_input")
-
-# Optional: Show suggested buttons below
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    if st.button("😊 I am happy"):
-        st.session_state.mood = "I am happy"
-        st.stop()  # Stop execution so next rerun picks up updated state
-
-with col2:
-    if st.button("😢 I am sad"):
-        st.session_state.mood = "I am sad"
-        st.stop()
-
-with col3:
-    if st.button("😌 I am calm"):
-        st.session_state.mood = "I am calm"
-        st.stop()
-# mood=st.text_input("How are you feeling today?")
-if mood:
-    sentiment = get_sentiment(mood) 
+if selected_mood:
+    sentiment = get_sentiment(selected_mood) 
     message = generate_message(sentiment)
     st.write(message)
     if st.button("I did my Habit" ):
-        log_habit(mood, sentiment)
+        log_habit(selected_mood, sentiment)
         run_scheduler()
         st.success("Habit logged, Basic Kaizen is successfully created")
