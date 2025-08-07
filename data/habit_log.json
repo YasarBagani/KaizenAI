@@ -18,5 +18,20 @@
     "date": "2025-07-23",
     "mood": "i am happy",
     "sentiment": "Positive"
+  },
+  {
+    "date": "2025-08-07",
+    "mood": "i am stressed",
+    "sentiment": "Neutral"
+  },
+  {
+    "date": "2025-08-07",
+    "mood": "i am stressed",
+    "sentiment": "Neutral"
+  },
+  {
+    "date": "2025-08-07",
+    "mood": "i am not stressed",
+    "sentiment": "Neutral"
   }
 ]
